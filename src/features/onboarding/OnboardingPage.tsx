@@ -125,7 +125,7 @@ export const OnboardingPage: React.FC = () => {
       {/* Header */}
       <header className="h-16 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0E1626] px-4 sm:px-8 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <Link to="/" className="flex items-center gap-2.5">
+          <Link to="/" aria-label="RoleRider — Go to homepage" className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/25">
               <Sparkles className="w-4 h-4" />
             </div>

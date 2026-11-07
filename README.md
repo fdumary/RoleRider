@@ -1,6 +1,6 @@
 # RoleRider — Technical Competency & Career Development Platform
 
-> **Don't Just Apply. Qualify.**  
+> **RoleRider — Don't just apply, qualify!**  
 > *Discover what employers expect, understand your technical strengths, and build the skills that move your career forward.*
 
 RoleRider is an evidence-based career development platform engineered for computing and IT students, recent graduates, and career changers. Unlike traditional resume keyword tools that simply optimize buzzwords for ATS filters, RoleRider focuses on developing and proving verifiable engineering competencies through structured, real-world projects.

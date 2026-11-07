@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import {
   LayoutDashboard,
@@ -63,12 +63,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen, onCloseMobile })
       >
         {/* Brand Header */}
         <div className="flex items-center justify-between h-16 px-4 border-b border-slate-100 dark:border-slate-800/60">
-          <NavLink
-            to="/dashboard"
-            className="flex items-center gap-3 focus:outline-none"
+          <Link
+            to="/"
+            aria-label="RoleRider — Go to homepage"
+            className="flex items-center gap-3 focus:outline-none group"
             onClick={onCloseMobile}
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/25 shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/25 shrink-0 group-hover:scale-105 transition-transform">
               <Sparkles className="w-5 h-5" />
             </div>
             {!isCollapsed && (
@@ -77,11 +78,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen, onCloseMobile })
                   Role<span className="text-indigo-600 dark:text-indigo-400">Rider</span>
                 </span>
                 <span className="text-[10px] uppercase font-semibold tracking-wider text-slate-400 dark:text-slate-500 mt-1 truncate">
-                  Don't Just Apply. Qualify.
+                  Don't just apply, qualify!
                 </span>
               </div>
             )}
-          </NavLink>
+          </Link>
 
           {/* Desktop collapse toggle */}
           <button

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import {
   Menu,
@@ -101,7 +101,13 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onOpenMobile }) => {
             {getPageTitle()}
           </h1>
           <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500">
-            <span>RoleRider</span>
+            <Link
+              to="/"
+              aria-label="RoleRider — Go to homepage"
+              className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium"
+            >
+              RoleRider
+            </Link>
             <span>/</span>
             <span className="capitalize">{getPageTitle()}</span>
           </div>

@@ -276,6 +276,17 @@ export const useStore = create<AppState>((set, get) => ({
         dateAdded: new Date().toISOString().split('T')[0],
       };
       const nextEvidences = [...state.evidences.filter(e => e.skillId !== evidence.skillId), newEv];
+      const nextGaps = state.skillGaps.map(g => {
+        if (g.skillId === evidence.skillId) {
+          return {
+            ...g,
+            currentLevel: evidence.currentLevel,
+            evidenceStatus: evidence.status,
+            priority: (evidence.currentLevel === 'proficient' || evidence.currentLevel === 'advanced') ? 'low' as const : 'medium' as const,
+          };
+        }
+        return g;
+      });
       const act: ActivityItem = {
         id: `act-${Date.now()}`,
         type: 'evidence_added',
@@ -285,9 +296,9 @@ export const useStore = create<AppState>((set, get) => ({
         link: '/skills',
       };
       const nextActivities = [act, ...state.activities.slice(0, 19)];
-      const nextState = { ...state, evidences: nextEvidences, activities: nextActivities };
+      const nextState = { ...state, evidences: nextEvidences, skillGaps: nextGaps, activities: nextActivities };
       saveState(nextState);
-      return { evidences: nextEvidences, activities: nextActivities };
+      return { evidences: nextEvidences, skillGaps: nextGaps, activities: nextActivities };
     });
   },
 

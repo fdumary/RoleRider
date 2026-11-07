@@ -121,7 +121,7 @@ export const LandingPage: React.FC = () => {
     <div className="min-h-screen bg-slate-50 dark:bg-[#0B1120] text-slate-900 dark:text-slate-100 font-sans selection:bg-indigo-500 selection:text-white">
       {/* Top Marketing Navigation */}
       <nav className="sticky top-0 z-40 h-16 border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2.5">
+        <Link to="/" aria-label="RoleRider — Go to homepage" className="flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/25">
             <Sparkles className="w-5 h-5" />
           </div>
@@ -165,15 +165,10 @@ export const LandingPage: React.FC = () => {
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-gradient-to-tr from-indigo-500/20 via-cyan-500/15 to-transparent blur-3xl pointer-events-none rounded-full" />
 
         <div className="relative z-10 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-200 dark:border-indigo-800/80 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-6">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-            <span>AI-Powered Technical Competency Platform</span>
-          </div>
-
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
-            Don't Just Apply. <br />
+            Don't just apply, <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-400">
-              Qualify.
+              qualify!
             </span>
           </h1>
 
@@ -364,10 +359,7 @@ export const LandingPage: React.FC = () => {
       {/* How It Works (5 Steps) */}
       <section id="how-it-works" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200 dark:border-slate-800/60">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-            A Proven Pathway
-          </span>
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mt-2 tracking-tight">
+          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             How RoleRider Works
           </h2>
           <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-3">
@@ -408,10 +400,7 @@ export const LandingPage: React.FC = () => {
       {/* Core Features */}
       <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200 dark:border-slate-800/60">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
-            Built for Real Competency
-          </span>
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mt-2 tracking-tight">
+          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Why Traditional Resume Tools Fail Students
           </h2>
           <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-3">
@@ -442,10 +431,7 @@ export const LandingPage: React.FC = () => {
       {/* FAQ Section */}
       <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto border-t border-slate-200 dark:border-slate-800/60">
         <div className="text-center mb-12">
-          <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-            Transparency First
-          </span>
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mt-2 tracking-tight">
+          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Frequently Asked Questions
           </h2>
         </div>
@@ -498,33 +484,18 @@ export const LandingPage: React.FC = () => {
             >
               Start Free Onboarding
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white/20 text-white hover:bg-white/10"
-              onClick={() => navigate('/dashboard')}
-            >
-              Explore Live Prototype
-            </Button>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 dark:border-slate-800/80 py-8 px-4 text-center text-xs text-slate-500 dark:text-slate-400">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="border-t border-slate-200 dark:border-slate-800/80 py-8 px-4 text-xs text-slate-500 dark:text-slate-400">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-indigo-500" />
-            <span className="font-bold text-slate-900 dark:text-white">RoleRider</span>
-            <span>— Don't Just Apply. Qualify.</span>
-          </div>
-          <div>
-            Built with React, TypeScript & Tailwind CSS • FastAPI Backend Ready
-          </div>
-          <div>
-            <Link to="/settings" className="hover:text-indigo-500 transition-colors">
-              Reset Prototype State
-            </Link>
+            <Sparkles className="w-4 h-4 text-indigo-500 shrink-0" />
+            <span>
+              <strong className="font-bold text-slate-900 dark:text-white">RoleRider</strong> — Don't just apply, qualify! All rights reserved.
+            </span>
           </div>
         </div>
       </footer>
