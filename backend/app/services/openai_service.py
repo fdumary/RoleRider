@@ -24,7 +24,5 @@ def openai_service(resume_text: str, job_title: str, skills: str, job_descriptio
         input=resume_text + job_title + skills + job_description
 
     )
-    print(resume_text + job_title + skills + job_description)
 
-    print(response.output_text)
     return response.output_text
