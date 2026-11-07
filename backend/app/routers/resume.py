@@ -1,10 +1,13 @@
-from fastapi import APIRouter, UploadFile, File, Depends, HTTPException
+from fastapi import APIRouter, UploadFile, File, Depends, HTTPException, Form
 from backend.app.services.resume_service import extract_text_from_pdf
 from backend.app.services.auth_service import get_current_user
 from backend.app.database.connection import get_db
 from backend.app.models.resume import Resume
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
+from backend.app.services.jobTitle_service import get_jobTitle_services
+from backend.app.services.openai_service import openai_service
+import json
 
 router = APIRouter(
     prefix="/api/resumes",
@@ -15,6 +18,7 @@ router = APIRouter(
 @router.post("/upload")
 async def upload_resume(
     file: UploadFile = File(...),
+    job_description: str = Form(...),
     guest_id: str = Depends(get_current_user),
     db: Session = Depends(get_db)):
     if file.content_type != "application/pdf":
@@ -42,8 +46,26 @@ async def upload_resume(
         db.rollback()
         raise HTTPException(status_code=500, detail="Failed to save resume. PLease try again.")
 
+    job_services = get_jobTitle_services(job_description, db)
+
+    ai_response = openai_service(
+        resume_text=new_resume.extracted_text,
+        job_title=job_services.JobTitle,
+        skills=job_services.skills,
+        job_description=job_services.job_description)
+
+    try:
+        ai_data = json.loads(ai_response)
+    except json.JSONDecodeError:
+        raise HTTPException(
+            status_code=500,
+            detail="AI returned invalid JSON"
+        )
+
     return {
-        "response": "resume successfully uploaded",
+        "response": new_resume.extracted_text,
         "id": new_resume.id,
-        "filename": new_resume.filename
+        "filename": new_resume.filename,
+        "get_jobTitle_services": job_services,
+        "ai_response": ai_data
     }
