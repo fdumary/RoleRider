@@ -1,37 +1,14 @@
-# RoleRider — Technical Competency & Career Development Platform
+# RoleRider
 
-> **RoleRider — Don't just apply, qualify!**  
-> *Discover what employers expect, understand your technical strengths, and build the skills that move your career forward.*
+RoleRider helps IT students prove what employers expect through hands-on projects.
 
-RoleRider is an evidence-based career development platform engineered for computing and IT students, recent graduates, and career changers. Unlike traditional resume keyword tools that simply optimize buzzwords for ATS filters, RoleRider focuses on developing and proving verifiable engineering competencies through structured, real-world projects.
+## Features
 
----
+- Recommended projects with descriptive steps and resources along each section that will help them learn the skills needed to do each section of the project
+- AI Analysis analyzes the projects in the resume to determine the level of skill the student has and to take it into account when creating projects to build that skill along with learning more skills for the job role
+- Certification recommendation after the projects to get certified in the respective aspect of technology
 
-## 🚀 Key Highlights & Differentiators
-
-- **Project Lab (Primary Differentiator):** Real-world, architecture-focused engineering blueprints (e.g., *Distributed Inventory Management System*, *Zero-Trust Identity Gateway*, *Real-Time Kafka Event Streaming Pipeline*) mapped directly to missing skill gaps.
-- **Interactive Milestone Workspaces:** Every project includes expandable phases, implementation task checklists, vetted documentation links, acceptance criteria, testable deliverables, and public proof-of-work submission fields (GitHub repo, live deployment, architecture reflections).
-- **Evidence-Based Competency Matrix:** Replaces arbitrary numerical scores or hiring probabilities with transparent, rubric-based proficiency levels:
-  - `Exposure` — Terminology and syntax awareness
-  - `Foundational` — Independent feature implementation using standard patterns
-  - `Proficient` — Edge case handling, automated testing, concurrency, and performance optimization
-  - `Advanced` — Distributed architecture, high throughput, and system reliability
-- **Evidence Classification Engine:** Distinguishes between:
-  - `Project Evidence` (verifiable code repository and functional artifacts)
-  - `Coursework Evidence` (academic coursework and grade records)
-  - `Assessment Evidence` (standardized evaluations)
-  - `Claimed / Unverified` (resume keyword claims awaiting code or coursework proof)
-- **Career Explorer & Taxonomy:** Curated benchmark profiles for 10+ technology careers (Backend Software Engineer, Frontend Developer, Full-Stack Developer, Cloud Infrastructure Engineer, Cybersecurity Analyst, DevOps Engineer, Data Engineer, Machine Learning Engineer, Mobile App Engineer, IT Systems Specialist).
-- **Personalized 4-Stage Career Roadmap:** Foundations &rarr; Applied Development &rarr; Specialized Competencies &rarr; Portfolio Readiness.
-- **Verified Portfolio Showcase:** A permanent proof-of-work portfolio separating self-reported claims from verified repositories, live APIs, and reflections.
-- **Industry Certifications Explorer:** Curated catalog of recognized credentials (AWS, CompTIA Security+, Kubernetes CKAD, GitHub Foundations, Terraform Associate).
-- **Global Search & Command Palette:** Quick jump across all careers, projects, skills, and pages (`Cmd+K` / `Ctrl+K`).
-- **Coherent Prototype User:** Unified sample candidate **Alex Morgan** (CS Major, target: *Backend Software Engineer*, active project: *Distributed Inventory System*).
-- **State Persistence:** Local storage synchronization for all project progress, task completions, role changes, evidence additions, and settings.
-
----
-
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Framework:** React 18 with TypeScript (Strict mode enabled)
 - **Build Tool:** Vite 5
@@ -42,9 +19,7 @@ RoleRider is an evidence-based career development platform engineered for comput
 - **Visualizations:** Recharts (Radar competency benchmarks, horizontal bar distributions)
 - **Service Layer:** Asynchronous Promise-based API abstractions ready for FastAPI backend connection
 
----
-
-## 📁 Project Architecture
+## Project Architecture
 
 ```text
 src/
@@ -83,9 +58,7 @@ src/
 └── main.tsx             # Application bootstrap
 ```
 
----
-
-## 🏃 Running the Application
+## Getting Started
 
 ### 1. Development Mode
 ```bash
@@ -104,24 +77,11 @@ Generates an optimized static bundle in the `dist/` directory.
 npm run preview
 ```
 
----
+### 4. Backend Server
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
 
-## 🔌 FastAPI Integration Readiness
-
-The frontend architecture includes a dedicated service layer in `src/services/api/index.ts`. All service functions return typed Promises matching future FastAPI endpoint responses:
-
-| Endpoint | Frontend Service Method | Description |
-|---|---|---|
-| `GET /api/v1/user/profile` | `authService.getCurrentUser()` | Retrieve authenticated candidate profile |
-| `POST /api/v1/resumes/upload` | `resumeService.uploadAndAnalyze(file)` | Upload PDF/DOCX resume for competency parsing |
-| `GET /api/v1/careers` | `careerService.getCareers(filters)` | Fetch tech career taxonomy |
-| `GET /api/v1/skills/gaps` | `skillService.getSkillGaps(careerId)` | Retrieve ranked competency gaps |
-| `GET /api/v1/projects` | `projectService.getProjects(filters)` | Get recommended project blueprints |
-| `PATCH /api/v1/projects/{id}/milestones/{mId}` | `projectService.toggleMilestoneTask()` | Update task completion and progress |
-| `POST /api/v1/projects/{id}/submission` | `projectService.updateSubmission()` | Save repository URLs and reflections |
-
----
-
-## 📄 License
+## License
 
 MIT License. Built for students, aspiring engineers, and career changers everywhere.
