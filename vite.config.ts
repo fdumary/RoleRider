@@ -17,6 +17,19 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:8000',
         changeOrigin: true,
+        configure: (proxy) => {
+          proxy.on('error', (_err, _req, res) => {
+            // Gracefully handle backend offline without loud terminal ECONNREFUSED stack traces
+            if ('writeHead' in res && !res.headersSent) {
+              res.writeHead(503, { 'Content-Type': 'application/json' });
+              res.end(
+                JSON.stringify({
+                  error: 'FastAPI backend offline. Standalone client simulation fallback active.',
+                })
+              );
+            }
+          });
+        },
       },
     },
   },
