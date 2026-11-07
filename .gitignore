@@ -3,3 +3,7 @@
 .idea/
 __pycache__/
 *.pyc
+node_modules/
+dist/
+dist-ssr/
+*.local
