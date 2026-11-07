@@ -21,7 +21,6 @@ export default function ResultsPage(){
                 <option value="Projects">Projects</option>
         </select>
     )
-    if(viewState == "Skills View"){
         return(
         <>
             <TopBar />
@@ -29,26 +28,10 @@ export default function ResultsPage(){
             {selectList}
             {viewState === "Skills View" && <SkillsCard />}
             {viewState === "Learning Pathway" && <LearningPath />}
+            {viewState === "Projects" && <Projects />}
         </>
         );
-    }else if(viewState == "Learning Pathway"){
-        return(
-            <>
-            <TopBar />
-            <h2>{viewState}</h2>
-            <select defaultValue={viewState} style={{color:"black"}}>
-                <option value="Skills View">Skills View</option>
-                <option value="Learning Pathway">Learning Pathway</option>
-                <option value="Projects">Projects</option>
-            </select>
-            <LearningPath />
-            </>
-        )
-    }else{
-        return(
-            <h2>{viewState}</h2>
-        );
-    }
+    
     
 }
 function SkillsCard(){
@@ -136,6 +119,38 @@ function Projects(){
     const json = raw? JSON.parse(raw): null;
     return(
         <>
+        <div style={{justifySelf: "center", width: "50%", textAlign: "center"}}>
+            <h1 style={{fontSize: "50px", fontWeight: "bolder"}}>Projects</h1>
+            {json.ai_response.projects.map((proj, i)=> (
+                <Fragment key={i}>
+                    <div style={{backgroundColor: "#3e3b3b", borderRadius: "20px", borderColor: "black", marginBottom: "20px"}}>
+
+                    <h3 style={{fontSize: "30px", color: "black", fontWeight: "bold"}}>{proj.title}</h3>
+                        <h4 style={{fontSize: "20px", fontWeight:"bold"}}>Descriptions</h4>
+                        <p>{proj.description}</p>
+                    
+                    <h4 style={{fontSize: "20px", fontWeight:"bold"}}>Skills</h4>
+                    <ul>
+                        {proj.skills_developed.map((skill, i) => (
+                            <li key={i}>{skill}</li>
+                        ))}
+                    </ul>
+                   <h4>Technology Stack</h4> 
+                    <ul>
+                        {proj.technologies.map((tech, i)=>{
+                            <li key={i}>{tech}</li>
+                        })}
+                    </ul>
+                    <h4>Steps</h4>
+                    <div>
+                        {proj.implementation_steps.map((step, i) =>(
+                            <p key={i}>Step {i} {step}</p>
+                        ))}
+                    </div>
+                    </div>
+                </Fragment>
+            ))}
+        </div>
         </>
     );
 }
