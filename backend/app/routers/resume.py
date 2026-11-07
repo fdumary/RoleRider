@@ -1,12 +1,12 @@
 from fastapi import APIRouter, UploadFile, File, Depends, HTTPException, Form
-from backend.app.services.resume_service import extract_text_from_pdf
-from backend.app.services.auth_service import get_current_user
-from backend.app.database.connection import get_db
-from backend.app.models.resume import Resume
+from app.services.resume_service import extract_text_from_pdf
+from app.services.auth_service import get_current_user
+from app.database.connection import get_db
+from app.models.resume import Resume
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
-from backend.app.services.jobTitle_service import get_jobTitle_services
-from backend.app.services.openai_service import openai_service
+from app.services.jobTitle_service import get_jobTitle_services
+from app.services.openai_service import openai_service
 import json
 
 router = APIRouter(
@@ -21,6 +21,7 @@ async def upload_resume(
     job_description: str = Form(...),
     guest_id: str = Depends(get_current_user),
     db: Session = Depends(get_db)):
+    print("Resume Uploading")
     if file.content_type != "application/pdf":
         raise HTTPException(
             status_code=400,

@@ -1,7 +1,6 @@
 from fastapi import FastAPI
-from backend.app.routers import auth
-from backend.app.routers import resume
-
+from app.routers import auth
+from app.routers import resume   
 app = FastAPI()
 
 app.include_router(auth.router)

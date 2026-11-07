@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from backend.app.services.auth_service import create_guest_token
+from app.services.auth_service import create_guest_token
 
 router = APIRouter(prefix="/api/auth", tags=["Auth"])
 

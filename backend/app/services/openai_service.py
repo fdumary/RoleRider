@@ -3,12 +3,12 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 from pathlib import Path
-from backend.app.prompts.openai_prompt import ROADMAP_SYSTEM_PROMPT
+from app.prompts.openai_prompt import ROADMAP_SYSTEM_PROMPT
 
 
 env_path = Path(__file__).resolve().parents[3] / ".env"
 load_dotenv(env_path)
-print(env_path)
+
 
 
 def openai_service(resume_text: str, job_title: str, skills: str, job_description: str):
@@ -24,7 +24,7 @@ def openai_service(resume_text: str, job_title: str, skills: str, job_descriptio
         input=resume_text + job_title + skills + job_description
 
     )
-    print(resume_text + job_title + skills + job_description)
+    
 
-    print(response.output_text)
+    
     return response.output_text

@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 import jwt
-from backend.app.core.config import JWT_SECRET, JWT_ALGORITHM, JWT_EXPIRE_MINUTES
+from app.core.config import JWT_SECRET, JWT_ALGORITHM, JWT_EXPIRE_MINUTES
 from uuid import uuid4
 from fastapi import HTTPException, status, Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer

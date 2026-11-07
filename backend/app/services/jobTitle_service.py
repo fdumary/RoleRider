@@ -1,5 +1,5 @@
 from fastapi import  HTTPException
-from backend.app.models.JobRoleSkill import JobRoleSkill
+from app.models.JobRoleSkill import JobRoleSkill
 from sqlalchemy.orm import Session
 
 

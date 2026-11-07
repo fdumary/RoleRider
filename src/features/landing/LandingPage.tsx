@@ -53,8 +53,9 @@ function AssessmentBlock(){
     const onResumeSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const token = sessionStorage.getItem("access_token");
+        fileData.append("job_description", selectedJob);
         try{
-            const response = await fetch('api/resumes/upload', {
+            const response = await fetch('/api/resumes/upload', {
                 method: 'POST',
                 body: fileData,
                 headers:{
@@ -62,6 +63,7 @@ function AssessmentBlock(){
                 }
             });
             const data = await response.json();
+            localStorage.setItem("results", JSON.stringify(data))
             navigate('/resultpage', { replace: true });
             console.log("Successful Resume upload");
         }catch(error){
@@ -73,11 +75,11 @@ function AssessmentBlock(){
             <div style={{position: 'relative', display: 'inline-block'}}>
                 <select id='job' name='Choose a job' defaultValue="Choose a job" style={{color:"black", marginRight: "20px"}} onChange={onJobSelect}>
                     <option value="Choose a job">Choose a job</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="Junior Backend Developer">Junior Backend Developer</option>
+                    <option value="Junior Frontend Developer">Junior Frontend Developer</option>
+                    <option value="Junior Full-Stack Developer">Junior Full-Stack Developer</option>
+                    <option value="Junior Data Analyst">Junior Data Analyst</option>
+                    <option value="Junior QA Engineer / Tester">Junior QA Engineer / Tester</option>
                 </select>
 
                 <input type='file' accept="application/pdf" onChange={onFileUploaded}/>

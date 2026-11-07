@@ -1,4 +1,4 @@
-from backend.app.database.connection import Base
+from app.database.connection import Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.dialects.postgresql import UUID
 
