@@ -77,24 +77,24 @@ function LearningPath(){
     return(
         <>
         <div style={{justifySelf: "center", width: "50%", textAlign: "center"}}>
-            {json.ai_response.learning_path.stages.map((stage, i) =>(
+            {json.ai_response.learning_path.stages.map((stage: LearningStage) =>(
                 <Fragment key={stage.order}>
                     <h2 key={stage.order}>{stage.title}</h2>
                     <ul>
-                        {stage.skills.map((skill, j) =>(
+                        {stage.skills.map((skill: string, j: number) =>(
                             <li key={j}>{(skill ==";")? "": skill}</li>
                         ))};
                     </ul>
-                    {stage.completion_criteria.map((comp, i) => (
+                    {stage.completion_criteria.map((comp: string, i: number) => (
                         <label key={i}><input type="checkbox" /> {comp} <br/></label>
                     ))}
                     <ul>
-                        {stage.objectives.map((obj, i) => (
+                        {stage.objectives.map((obj: string, i: number) => (
                         <li key={i}>{obj}</li>
                     ))}
                     </ul>
                     <div>
-                        {stage.resources.map((res, i) =>(
+                        {stage.resources.map((res: LearningResource, i: number) =>(
                             <Fragment key={i}>
                                 <a href={res.url} style={{textAlign:"center"}}>
                                     <h2 key={res.title}>{res.title}</h2>
@@ -121,7 +121,7 @@ function Projects(){
         <>
         <div style={{justifySelf: "center", width: "50%", textAlign: "center"}}>
             <h1 style={{fontSize: "50px", fontWeight: "bolder"}}>Projects</h1>
-            {json.ai_response.projects.map((proj, i)=> (
+            {json.ai_response.projects.map((proj: ProjectRecommendation, i: number)=> (
                 <Fragment key={i}>
                     <div style={{backgroundColor: "#3e3b3b", borderRadius: "20px", borderColor: "black", marginBottom: "20px"}}>
 
@@ -131,19 +131,19 @@ function Projects(){
                     
                     <h4 style={{fontSize: "20px", fontWeight:"bold"}}>Skills</h4>
                     <ul>
-                        {proj.skills_developed.map((skill, i) => (
+                        {proj.skills_developed.map((skill: string, i: number) => (
                             <li key={i}>{skill}</li>
                         ))}
                     </ul>
                    <h4>Technology Stack</h4> 
                     <ul>
-                        {proj.technologies.map((tech, i)=>{
+                        {proj.technologies.map((tech: string, i: number) => (
                             <li key={i}>{tech}</li>
-                        })}
+                        ))}
                     </ul>
                     <h4>Steps</h4>
                     <div>
-                        {proj.implementation_steps.map((step, i) =>(
+                        {proj.implementation_steps.map((step: string, i: number) =>(
                             <p key={i}>Step {i} {step}</p>
                         ))}
                     </div>
@@ -168,4 +168,26 @@ interface SkillGap{
 interface SkillGapReport{
     array: any;
     skill_gaps: SkillGap[];
+}
+
+interface LearningResource {
+    title: string;
+    url: string;
+}
+
+interface LearningStage {
+    order: number;
+    title: string;
+    skills: string[];
+    objectives: string[];
+    completion_criteria: string[];
+    resources: LearningResource[];
+}
+
+interface ProjectRecommendation {
+    title: string;
+    description: string;
+    technologies: string[];
+    skills_developed: string[];
+    implementation_steps: string[];
 }
