@@ -3,8 +3,10 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 
-env_path = Path(__file__).resolve().parents[3] / ".env"
+env_path = Path(__file__).resolve().parents[3] / "backend/.env"
 load_dotenv(env_path)
+print(env_path)
+print(123)
 
 JWT_SECRET = os.getenv("JWT_SECRET_KEY")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")

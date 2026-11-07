@@ -2,6 +2,8 @@ import React from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { AppShell } from '../../components/layout/AppShell';
 import LandingPage from '../../features/landing/LandingPage';
+import WebDetailsPage from '@/features/webdetails/WebDetailsPage';
+import ResultsPage from '@/features/results/ResultsPage';
 
 export const router = createBrowserRouter([
   // Public routes
@@ -9,14 +11,14 @@ export const router = createBrowserRouter([
     path: '/',
     element: <LandingPage />,
   },
-  // {
-  //   path: '/login',
-  //   element: <LoginPage />,
-  // },
-  // {
-  //   path: '/register',
-  //   element: <RegisterPage />,
-  // },
+  {
+    path: '/detailpage',
+    element: <WebDetailsPage />,
+  },
+  {
+    path: '/resultpage',
+    element: <ResultsPage />,
+  },
   // {
   //   path: '/onboarding',
   //   element: <OnboardingPage />,
