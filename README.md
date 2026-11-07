@@ -44,6 +44,19 @@ npm run preview
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
+## Deploying on Vercel
+
+The repository is configured as one Vercel project with two services:
+
+- `app` builds the Vite frontend from the repository root.
+- `backend` runs the FastAPI application from `backend/`.
+
+Requests under `/api/` are routed to `backend`; all other requests are routed to
+the frontend. The frontend uses relative `/api/...` URLs, so the same paths work
+through Vite's local proxy and the Vercel rewrite. Configure the backend's
+runtime secrets (`DATABASE_URL`, `JWT_SECRET_KEY`, `JWT_ALGORITHM`,
+`JWT_EXPIRE_MINUTES`, and `OPENAI_API_KEY`) in the Vercel project settings.
+
 ## License
 
 MIT License. Built for students, aspiring engineers, and career changers everywhere.
