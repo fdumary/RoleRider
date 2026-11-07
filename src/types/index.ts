@@ -19,6 +19,26 @@ export type ExperienceLevel =
   | 'career_changer'
   | 'early_career';
 
+export interface AuthSession {
+  accessToken: string | null;
+  guestId: string | null;
+  role: 'guest' | 'user' | null;
+  isGuest: boolean;
+  expiresAt: number | null; // epoch ms
+  isAuthenticated: boolean;
+}
+
+export interface GuestAuthResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  user: {
+    id: string;
+    role: 'guest' | 'user';
+    is_guest: boolean;
+  };
+}
+
 export interface UserProfile {
   id: string;
   name: string;
@@ -33,6 +53,7 @@ export interface UserProfile {
   onboardingCompleted: boolean;
   avatarUrl?: string;
   joinedDate: string;
+  isGuest?: boolean;
 }
 
 export interface Career {

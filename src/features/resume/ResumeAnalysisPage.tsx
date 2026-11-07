@@ -15,7 +15,8 @@ import {
   Code2,
   Award,
   RotateCcw,
-  Check
+  Check,
+  ClipboardPaste
 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -23,6 +24,7 @@ import { Badge, EvidenceBadge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
 import { Input } from '../../components/ui/Input';
 import { EvidenceStatus, ResumeSkillItem } from '../../types';
+import { JobDescriptionModal } from '../../components/shared/JobDescriptionModal';
 
 export const ResumeAnalysisPage: React.FC = () => {
   const {
@@ -39,6 +41,7 @@ export const ResumeAnalysisPage: React.FC = () => {
   const [newSkillCategory, setNewSkillCategory] = useState('Programming Languages');
   const [newSkillEvidence, setNewSkillEvidence] = useState<EvidenceStatus>('claimed');
   const [isSimulatingUpload, setIsSimulatingUpload] = useState(false);
+  const [isJobDescModalOpen, setIsJobDescModalOpen] = useState(false);
 
   const handleSimulateNewUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

@@ -13,7 +13,8 @@ import {
   ActivityItem,
   ResumeSkillItem,
   EvidenceStatus,
-  RubricLevel
+  RubricLevel,
+  AuthSession
 } from '../types';
 import {
   INITIAL_USER,
@@ -38,6 +39,12 @@ export interface ToastMessage {
 }
 
 interface AppState {
+  // Session & Auth
+  session: AuthSession;
+  setGuestSession: (token: string, guestId: string, expiresInSeconds?: number) => void;
+  checkSessionExpiration: () => boolean;
+  clearSession: () => void;
+
   // User & Onboarding
   user: UserProfile;
   setUser: (user: Partial<UserProfile>) => void;
@@ -104,9 +111,19 @@ const getStoredState = () => {
   return null;
 };
 
+const DEFAULT_SESSION: AuthSession = {
+  accessToken: null,
+  guestId: null,
+  role: null,
+  isGuest: false,
+  expiresAt: null,
+  isAuthenticated: false,
+};
+
 const saveState = (state: Partial<AppState>) => {
   try {
     const dataToSave = {
+      session: state.session,
       user: state.user,
       evidences: state.evidences,
       skillGaps: state.skillGaps,
@@ -125,6 +142,7 @@ const saveState = (state: Partial<AppState>) => {
 const initialSaved = getStoredState();
 
 export const useStore = create<AppState>((set, get) => ({
+  session: initialSaved?.session || DEFAULT_SESSION,
   user: initialSaved?.user || INITIAL_USER,
   careers: CAREERS,
   skills: SKILLS_CATALOG,
@@ -139,6 +157,65 @@ export const useStore = create<AppState>((set, get) => ({
   theme: (initialSaved?.theme as 'dark' | 'light') || 'dark', // default to dark modern theme as requested in wireframes
   isSearchOpen: false,
   toasts: [],
+
+  setGuestSession: (token, guestId, expiresInSeconds = 3600) => {
+    const expiresAt = Date.now() + expiresInSeconds * 1000;
+    const session: AuthSession = {
+      accessToken: token,
+      guestId,
+      role: 'guest',
+      isGuest: true,
+      expiresAt,
+      isAuthenticated: true,
+    };
+    set((state) => {
+      const nextUser: UserProfile = {
+        ...state.user,
+        id: guestId,
+        name: `Guest Candidate (${guestId.slice(-4)})`,
+        email: 'guest@rolerider.io',
+        headline: 'Guest Explorer — Evaluating Technical Career Pathways',
+        isGuest: true,
+        onboardingCompleted: false,
+      };
+      const act: ActivityItem = {
+        id: `act-${Date.now()}`,
+        type: 'evidence_added',
+        title: 'Guest Session Initiated',
+        description: 'Authenticated with 60-minute guest access token.',
+        timestamp: 'Just now',
+        link: '/onboarding',
+      };
+      const nextActivities = [act, ...state.activities.slice(0, 19)];
+      const nextState = { ...state, session, user: nextUser, activities: nextActivities };
+      saveState(nextState);
+      return { session, user: nextUser, activities: nextActivities };
+    });
+  },
+
+  checkSessionExpiration: () => {
+    const { session } = get();
+    if (!session.isAuthenticated) return false;
+    if (session.expiresAt && Date.now() > session.expiresAt) {
+      get().clearSession();
+      get().addToast({
+        type: 'warning',
+        title: 'Guest Session Expired',
+        message: 'Your 60-minute guest session has ended. Click "Continue as Guest" to restart.',
+      });
+      return false;
+    }
+    return true;
+  },
+
+  clearSession: () => {
+    set((state) => {
+      const nextSession = DEFAULT_SESSION;
+      const nextState = { ...state, session: nextSession };
+      saveState(nextState);
+      return { session: nextSession };
+    });
+  },
 
   setUser: (updates) => {
     set((state) => {

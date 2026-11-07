@@ -102,9 +102,9 @@ export const RegisterPage: React.FC = () => {
             </Button>
           </form>
 
-          <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 text-center">
-            <Link to="/dashboard" className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
-              Skip straight to demo dashboard &rarr;
+          <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 text-center space-y-2">
+            <Link to="/login" className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline block">
+              Prefer guest access? Continue as Guest on Sign In &rarr;
             </Link>
           </div>
         </div>

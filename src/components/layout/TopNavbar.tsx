@@ -32,7 +32,9 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onOpenMobile }) => {
     setSearchOpen,
     activities,
     setTargetCareer,
-    resetDemoData
+    resetDemoData,
+    session,
+    checkSessionExpiration
   } = useStore();
 
   const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
@@ -258,13 +260,22 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onOpenMobile }) => {
         {/* User Account Menu */}
         <div className="relative" ref={userMenuRef}>
           <button
-            onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+            onClick={() => {
+              checkSessionExpiration();
+              setIsUserMenuOpen(!isUserMenuOpen);
+            }}
             className="flex items-center gap-2 p-1 pl-2 rounded-full border border-slate-200 dark:border-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
             aria-label="User profile menu"
           >
-            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 hidden md:inline-block">
-              {user.name.split(' ')[0]}
-            </span>
+            {session.isGuest ? (
+              <span className="text-[11px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 hidden md:inline-block">
+                Guest
+              </span>
+            ) : (
+              <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 hidden md:inline-block">
+                {user.name.split(' ')[0]}
+              </span>
+            )}
             <img
               src={user.avatarUrl}
               alt={user.name}
@@ -275,10 +286,17 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onOpenMobile }) => {
           {isUserMenuOpen && (
             <div className="absolute right-0 mt-2 w-64 rounded-xl bg-white dark:bg-[#131D31] border border-slate-200 dark:border-slate-800 shadow-xl py-2 z-50 animate-fadeIn">
               <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800">
-                <p className="text-sm font-bold text-slate-900 dark:text-white truncate">
-                  {user.name}
-                </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-bold text-slate-900 dark:text-white truncate">
+                    {user.name}
+                  </p>
+                  {session.isGuest && (
+                    <span className="text-[9px] font-mono uppercase bg-amber-100 dark:bg-amber-950/80 text-amber-700 dark:text-amber-400 px-1.5 py-0.5 rounded font-bold">
+                      Guest
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
                   {user.email}
                 </p>
                 <div className="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-[11px] font-semibold">
@@ -304,7 +322,16 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onOpenMobile }) => {
                   }}
                   className="w-full px-4 py-2 text-left text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors"
                 >
-                  Run Guided Onboarding Again
+                  Run Onboarding Again
+                </button>
+                <button
+                  onClick={() => {
+                    navigate('/login');
+                    setIsUserMenuOpen(false);
+                  }}
+                  className="w-full px-4 py-2 text-left text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors"
+                >
+                  Start New Guest Session
                 </button>
                 <button
                   onClick={() => {

@@ -9,7 +9,8 @@ import {
   ProjectSubmission,
   RoadmapStage,
   Certification,
-  ActivityItem
+  ActivityItem,
+  GuestAuthResponse
 } from '../../types';
 import { useStore } from '../../store/useStore';
 import {
@@ -28,6 +29,50 @@ export const authService = {
   async getCurrentUser(): Promise<UserProfile> {
     await delay(100);
     return useStore.getState().user;
+  },
+
+  async loginAsGuest(): Promise<GuestAuthResponse> {
+    try {
+      const response = await fetch('/api/auth/guest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (response.ok) {
+        const data: GuestAuthResponse = await response.json();
+        return data;
+      }
+    } catch (err) {
+      // Backend offline or unreachable in standalone prototype mode
+    }
+
+    // Client fallback adhering to exact backend JWT specification
+    await delay(350);
+    const guestUuid = `guest_${Math.random().toString(36).substring(2, 10)}`;
+    const now = Math.floor(Date.now() / 1000);
+    const exp = now + 3600;
+
+    const b64Url = (str: string) => btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    const header = b64Url(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
+    const payload = b64Url(JSON.stringify({
+      sub: guestUuid,
+      role: 'guest',
+      iat: now,
+      exp: exp,
+      jti: Math.random().toString(36).substring(2, 12),
+    }));
+    const sig = b64Url('rolerider_prototype_signature');
+    const token = `${header}.${payload}.${sig}`;
+
+    return {
+      access_token: token,
+      token_type: 'bearer',
+      expires_in: 3600,
+      user: {
+        id: guestUuid,
+        role: 'guest',
+        is_guest: true,
+      },
+    };
   },
 
   async updateUserProfile(updates: Partial<UserProfile>): Promise<UserProfile> {
