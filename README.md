@@ -7,6 +7,7 @@ RoleRider provides IT students with the resources that employers expect through 
 - Recommended projects with descriptive steps and resources along each section that will help them learn the skills needed to do each section of the project
 - AI Analysis analyzes the projects in the resume to determine the level of skill the student has and to take it into account when creating projects to build that skill along with learning more skills for the job role
 - Certification recommendation after the projects to get certified in the respective aspect of technology
+- Uses JSON Web Token to make sure that only the person who owns a resume can access it and helps the backend verify the identity of the person making a request
 
 ## Technology Stack
 
@@ -17,7 +18,7 @@ RoleRider provides IT students with the resources that employers expect through 
 - **State Management:** Zustand with automatic `localStorage` synchronization
 - **Icons:** Lucide React
 - **Visualizations:** Recharts (Radar competency benchmarks, horizontal bar distributions)
-- **Service Layer:** Asynchronous Promise-based API abstractions ready for FastAPI backend connection
+- **Service Layer:** Asynchronous promise-based API abstractions ready for FastAPI backend connection
 
 ## Getting Started
 
