@@ -1,6 +1,6 @@
 # RoleRider
 
-RoleRider helps IT students prove what employers expect through hands-on projects.
+RoleRider provides IT students with the resources that employers expect through hands-on projects.
 
 ## Features
 
@@ -18,45 +18,6 @@ RoleRider helps IT students prove what employers expect through hands-on project
 - **Icons:** Lucide React
 - **Visualizations:** Recharts (Radar competency benchmarks, horizontal bar distributions)
 - **Service Layer:** Asynchronous Promise-based API abstractions ready for FastAPI backend connection
-
-## Project Architecture
-
-```text
-src/
-├── app/
-│   ├── router/          # React Router v6 route configuration
-│   └── providers/
-├── components/
-│   ├── ui/              # Reusable component library (Button, Badge, Card, Modal, Input, Tabs, ProgressBar, Toast)
-│   ├── layout/          # AppShell, Sidebar, TopNavbar, CommandPalette
-│   └── shared/          # Shared icons and helper elements
-├── data/
-│   └── mockData.ts      # Comprehensive fixtures (Careers, Skills, Projects, Milestones, Certifications, User)
-├── features/
-│   ├── landing/         # Marketing landing page with interactive preview & FAQ
-│   ├── auth/            # Sign in and candidate registration
-│   ├── onboarding/      # 5-step guided career setup & simulated resume parsing
-│   ├── dashboard/       # Central platform overview, widgets, radar charts, active project
-│   ├── careers/         # Career Explorer & deep dive detail views
-│   ├── resume/          # Resume analysis & evidence classification editor
-│   ├── skills/          # Competency matrix table & skill detail inspection
-│   ├── projects/        # Project Lab catalog & interactive milestone workspace
-│   ├── roadmap/         # 4-stage personalized career roadmap
-│   ├── certifications/  # Curated industry credentials catalog
-│   ├── portfolio/       # Proof-of-work showcase & public link manager
-│   └── settings/        # Preferences, target career switch & demo data reset
-├── services/
-│   └── api/             # Future FastAPI integration contracts (authService, careerService, projectService, etc.)
-├── store/
-│   └── useStore.ts      # Zustand state store with persistent local storage
-├── types/
-│   └── index.ts         # TypeScript domain interfaces and type definitions
-├── utils/
-│   └── cn.ts            # ClassNames merging utility (clsx + tailwind-merge)
-├── styles/
-│   └── index.css        # Tailwind directives and custom animation styles
-└── main.tsx             # Application bootstrap
-```
 
 ## Getting Started
 
